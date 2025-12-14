@@ -1,0 +1,130 @@
+import { useNavigate } from "react-router-dom";
+
+function Health() {
+  const navigate = useNavigate();
+
+  const healthPosts = [
+    {
+      id: 1,
+      category: "Health",
+      title: "The Role of Sleep in Immune System Support",
+      image:
+        "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
+      date: "February 24, 2025",
+      description:
+        "Quality sleep plays a critical role in strengthening the immune system and maintaining overall health. Adequate rest supports cellular repair, hormonal balance, and immune response, helping the body fight infections and reduce the risk of chronic diseases in the long term."
+    },
+    {
+      id: 2,
+      category: "Health",
+      title: "Breaking Down the Latest Nutritional Guidelines",
+      image:
+        "https://images.unsplash.com/photo-1498837167922-ddd27525d352",
+      date: "February 24, 2025",
+      description:
+        "Modern nutritional guidelines emphasize balanced diets, portion control, and nutrient diversity to prevent lifestyle-related illnesses. Health experts recommend personalized nutrition plans that consider age, activity levels, and existing medical conditions to promote sustainable well-being."
+    },
+    {
+      id: 3,
+      category: "Health",
+      title: "How Climate Change is Impacting Global Health",
+      image:
+        "https://images.unsplash.com/photo-1584036561584-b03c19da874c",
+      date: "February 24, 2025",
+      description:
+        "Climate change is emerging as a major public health challenge, contributing to the spread of infectious diseases, heat-related illnesses, and food insecurity. Healthcare systems worldwide are adapting strategies to address environmental risks and protect vulnerable populations."
+    }
+  ];
+
+  return (
+    <section className="max-w-7xl mx-auto px-6 py-20 grid grid-cols-1 lg:grid-cols-4 gap-12">
+      {/* LEFT CONTENT */}
+      <div className="lg:col-span-3">
+        <h1 className="text-4xl font-bold mb-4">Health</h1>
+        <hr className="mb-10" />
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+          {healthPosts.map((post) => (
+            <div
+              key={post.id}
+              className="group cursor-pointer"
+              onClick={() => navigate("/news-details", { state: post })}
+            >
+              <img
+                src={post.image}
+                alt={post.title}
+                className="w-full h-48 object-cover rounded-lg mb-4 group-hover:scale-105 transition"
+              />
+
+              <span className="text-sm font-semibold text-red-600 uppercase">
+                {post.category}
+              </span>
+
+              <h2 className="text-xl font-bold mt-2 group-hover:text-red-600 transition">
+                {post.title}
+              </h2>
+
+              <p className="text-sm text-gray-500 mt-1">{post.date}</p>
+
+              <p className="text-gray-700 mt-3 leading-relaxed">
+                {post.description}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* RIGHT SIDEBAR */}
+      <aside className="lg:col-span-1 border-l pl-6 space-y-10">
+        {/* Search */}
+        <div>
+          <h3 className="font-semibold mb-2">Search</h3>
+          <div className="flex gap-2">
+            <input
+              type="text"
+              placeholder="Search..."
+              className="border px-3 py-2 w-full rounded"
+            />
+            <button className="bg-black text-white px-4 rounded">
+              Search
+            </button>
+          </div>
+        </div>
+
+        {/* Recent Posts */}
+        <div>
+          <h3 className="text-2xl font-bold mb-4">Recent Posts</h3>
+          <ul className="space-y-3 text-red-600">
+            <li className="cursor-pointer hover:underline">
+              Olympics 2025: The Cyclists to Watch
+            </li>
+            <li className="cursor-pointer hover:underline">
+              The Top Film Festivals Showcasing Emerging Talent
+            </li>
+            <li className="cursor-pointer hover:underline">
+              Understanding the Evolution of Digital Art Marketplaces
+            </li>
+            <li className="cursor-pointer hover:underline">
+              Understanding Voter Turnout Trends in Democratic Elections
+            </li>
+          </ul>
+        </div>
+
+        {/* Categories */}
+        <div>
+          <h3 className="text-2xl font-bold mb-4">Categories</h3>
+          <ul className="space-y-2 text-red-600">
+            <li className="cursor-pointer hover:underline">Arts (4)</li>
+            <li className="cursor-pointer hover:underline">Business (2)</li>
+            <li className="cursor-pointer hover:underline">Health (5)</li>
+            <li className="cursor-pointer hover:underline">Politics (2)</li>
+            <li className="cursor-pointer hover:underline">Science (2)</li>
+            <li className="cursor-pointer hover:underline">Sports (2)</li>
+          </ul>
+        </div>
+      </aside>
+    </section>
+  );
+}
+
+export default Health;
