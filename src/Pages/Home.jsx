@@ -745,6 +745,183 @@
 // after updation 
 
 
+// import { useEffect, useState } from "react";
+// import { useNavigate } from "react-router-dom";
+
+// import Hero from "../Components/Hero";
+// import CategorySection from "../Components/CategorySection";
+// import Newsletter from "../Components/Newsletter";
+// import BreakingNews from "../Components/BreakingNews";
+
+// /* ================= DUMMY FALLBACK ================= */
+// const dummyNews = (category) => [
+//   {
+//     id: `${category}-1`,
+//     title: `${category} news update will be available soon`,
+//     description:
+//       "We are fetching the latest updates. Please stay connected with Quick ScaleUp News.",
+//     image: "/news-placeholder.jpg",
+//   },
+//   {
+//     id: `${category}-2`,
+//     title: `Top ${category} story of the day`,
+//     description:
+//       "This section will soon show real-time news fetched from trusted sources.",
+//     image: "/news-placeholder.jpg",
+//   },
+//   {
+//     id: `${category}-3`,
+//     title: `Important ${category} headline`,
+//     description:
+//       "Our team is working to bring you the most accurate and latest news.",
+//     image: "/news-placeholder.jpg",
+//   },
+// ];
+
+// function Home() {
+//   const navigate = useNavigate();
+
+//   /* ================= STATE ================= */
+//   const [business, setBusiness] = useState([]);
+//   const [technology, setTechnology] = useState([]);
+//   const [health, setHealth] = useState([]);
+
+//   /* ================= SEO ================= */
+//   useEffect(() => {
+//     document.title =
+//       "Quick ScaleUp News – Latest Business, Technology, Health & World News";
+
+//     const setMeta = (name, content) => {
+//       let meta = document.querySelector(`meta[name="${name}"]`);
+//       if (!meta) {
+//         meta = document.createElement("meta");
+//         meta.name = name;
+//         document.head.appendChild(meta);
+//       }
+//       meta.content = content;
+//     };
+
+//     setMeta(
+//       "description",
+//       "Quick ScaleUp News brings you the latest Business, Technology, Health, Politics and World news with fast and reliable updates."
+//     );
+
+//     setMeta(
+//       "keywords",
+//       "Business News, Technology News, Health News, World News, Politics News, Indian News"
+//     );
+//   }, []);
+
+//   /* ================= API FETCH ================= */
+//   const fetchCategory = async (category) => {
+//     try {
+//       const res = await fetch(
+//         `${import.meta.env.VITE_NEWS_API_URL}?q=${category}&pageSize=6&apiKey=${import.meta.env.VITE_NEWS_API_KEY}`
+//       );
+
+//       const data = await res.json();
+
+//       if (!data?.articles || !Array.isArray(data.articles)) {
+//         return dummyNews(category);
+//       }
+
+//       return data.articles.slice(0, 3).map((item, index) => ({
+//         id: `${category}-${index}`,
+//         title: item?.title || "Latest news update",
+//         description:
+//           item?.description ||
+//           "More details will be available soon on Quick ScaleUp News.",
+//         image:
+//           item?.urlToImage?.startsWith("https")
+//             ? item.urlToImage
+//             : "/news-placeholder.jpg",
+//       }));
+//     } catch (error) {
+//       console.error("News API Error:", error);
+//       return dummyNews(category);
+//     }
+//   };
+
+//   useEffect(() => {
+//     (async () => {
+//       const [b, t, h] = await Promise.all([
+//         fetchCategory("business"),
+//         fetchCategory("technology"),
+//         fetchCategory("health"),
+//       ]);
+
+//       setBusiness(b);
+//       setTechnology(t);
+//       setHealth(h);
+//     })();
+//   }, []);
+
+//   /* ================= UI ================= */
+//   return (
+//     <main className="bg-gray-100">
+
+//       {/* BREAKING NEWS */}
+//       <BreakingNews />
+
+//       {/* HERO */}
+//       <Hero />
+
+//       {/* ================= TOP STORIES ================= */}
+//       <section className="max-w-7xl mx-auto px-6 py-14">
+//         <div className="flex justify-between items-center mb-6">
+//           <h2 className="text-3xl font-bold">Top Stories</h2>
+//           <button
+//             onClick={() => navigate("/world")}
+//             className="text-red-600 font-semibold hover:underline"
+//           >
+//             View All
+//           </button>
+//         </div>
+
+//         <div className="grid md:grid-cols-3 gap-8">
+//           {business.map((item) => (
+//             <div
+//               key={item.id}
+//               onClick={() => navigate("/business")}
+//               className="cursor-pointer bg-white rounded-xl shadow hover:shadow-lg transition"
+//             >
+//               <img
+//                 src={item.image}
+//                 alt={item.title}
+//                 onError={(e) => (e.target.src = "/news-placeholder.jpg")}
+//                 className="h-56 w-full object-cover rounded-t-xl"
+//               />
+//               <div className="p-4">
+//                 <span className="text-red-600 text-sm font-semibold">
+//                   Business
+//                 </span>
+//                 <h3 className="font-bold mt-2">{item.title}</h3>
+//               </div>
+//             </div>
+//           ))}
+//         </div>
+//       </section>
+
+//       {/* ================= CATEGORY SECTIONS ================= */}
+//       <CategorySection title="Business" posts={business} />
+//       <CategorySection title="Technology" posts={technology} />
+//       <CategorySection title="Health" posts={health} />
+
+//       {/* ================= NEWSLETTER (FOOTER SE PEHLE) ================= */}
+//       <Newsletter />
+
+//     </main>
+//   );
+// }
+
+// export default Home;
+
+
+
+// previous correct but here api fetch api solution
+
+
+
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -812,11 +989,14 @@ function Home() {
     );
   }, []);
 
-  /* ================= API FETCH ================= */
+  /* ================= API FETCH (GNEWS) ================= */
   const fetchCategory = async (category) => {
     try {
+      const BASE_URL = import.meta.env.VITE_NEWS_API_URL;
+      const API_KEY = import.meta.env.VITE_NEWS_API_KEY;
+
       const res = await fetch(
-        `${import.meta.env.VITE_NEWS_API_URL}?q=${category}&pageSize=6&apiKey=${import.meta.env.VITE_NEWS_API_KEY}`
+        `${BASE_URL}/search?q=${category}&lang=en&country=in&max=6&apikey=${API_KEY}`
       );
 
       const data = await res.json();
@@ -832,12 +1012,12 @@ function Home() {
           item?.description ||
           "More details will be available soon on Quick ScaleUp News.",
         image:
-          item?.urlToImage?.startsWith("https")
-            ? item.urlToImage
+          item?.image?.startsWith("http")
+            ? item.image
             : "/news-placeholder.jpg",
       }));
     } catch (error) {
-      console.error("News API Error:", error);
+      console.error("GNews API Error:", error);
       return dummyNews(category);
     }
   };
@@ -859,7 +1039,6 @@ function Home() {
   /* ================= UI ================= */
   return (
     <main className="bg-gray-100">
-
       {/* BREAKING NEWS */}
       <BreakingNews />
 
@@ -907,9 +1086,8 @@ function Home() {
       <CategorySection title="Technology" posts={technology} />
       <CategorySection title="Health" posts={health} />
 
-      {/* ================= NEWSLETTER (FOOTER SE PEHLE) ================= */}
+      {/* ================= NEWSLETTER ================= */}
       <Newsletter />
-
     </main>
   );
 }
