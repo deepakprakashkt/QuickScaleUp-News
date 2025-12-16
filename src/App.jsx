@@ -243,7 +243,81 @@
 // src/App.jsx
 
 
-import { Routes, Route } from "react-router-dom";
+// import { Routes, Route } from "react-router-dom";
+// import { ToastContainer } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
+
+// import Navbar from "./Components/Navbar";
+// import Footer from "./Components/Footer";
+
+// import Home from "./Pages/Home";
+// import Business from "./Pages/Business";
+// import Health from "./Pages/Health";
+// import Technology from "./Pages/Technology";
+// import World from "./Pages/World";
+// import Politics from "./Pages/Politics";
+// import Arts from "./Pages/Arts";
+// import Science from "./Pages/Science";
+// import NewsDetails from "./Pages/NewsDetails";
+
+
+
+
+// import BreakingDetails from "./Pages/BreakingDetails";
+
+ 
+// import Auth from "./Pages/Auth";
+
+
+
+
+
+
+// function App() {
+//   return (
+//     <>
+//       <Navbar />
+
+//       <Routes>
+//         <Route path="/" element={<Home />} />
+//         <Route path="/business" element={<Business />} />
+//         <Route path="/health" element={<Health />} />
+//         <Route path="/technology" element={<Technology />} />
+//         <Route path="/world" element={<World />} />
+//         <Route path="/politics" element={<Politics />} />
+//         <Route path="/arts" element={<Arts />} />
+//         <Route path="/science" element={<Science />} />
+//         <Route path="/news/:category/:id" element={<NewsDetails />} />
+
+
+//         <Route path="/breaking" element={<BreakingDetails />} />
+
+
+//         <Route path="/auth" element={<Auth />} />
+//       </Routes>
+
+//       <Footer />
+
+//       {/* Toast */}
+//       <ToastContainer position="top-right" autoClose={3000} />
+//     </>
+//   );
+// }
+
+// export default App;
+
+
+
+
+
+
+ 
+
+
+
+ // after update 
+
+ import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -259,19 +333,15 @@ import Politics from "./Pages/Politics";
 import Arts from "./Pages/Arts";
 import Science from "./Pages/Science";
 import NewsDetails from "./Pages/NewsDetails";
-
-
-
-
 import BreakingDetails from "./Pages/BreakingDetails";
+import Auth from "./Pages/Auth";
 
- 
-
-
+/* ✅ AUTH PROVIDER */
+import { AuthProvider } from "./context/AuthContext";
 
 function App() {
   return (
-    <>
+    <AuthProvider>
       <Navbar />
 
       <Routes>
@@ -284,28 +354,16 @@ function App() {
         <Route path="/arts" element={<Arts />} />
         <Route path="/science" element={<Science />} />
         <Route path="/news/:category/:id" element={<NewsDetails />} />
-
-
         <Route path="/breaking" element={<BreakingDetails />} />
+        <Route path="/auth" element={<Auth />} />
       </Routes>
 
       <Footer />
 
       {/* Toast */}
       <ToastContainer position="top-right" autoClose={3000} />
-    </>
+    </AuthProvider>
   );
 }
 
 export default App;
-
-
-
-
-
-
- 
-
-
-
- 
